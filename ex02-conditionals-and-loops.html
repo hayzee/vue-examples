@@ -1,0 +1,38 @@
+<html>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+
+<body>
+
+    <div id="app">
+        <span v-if="showMessage">
+                    {{ message }}
+        </span>
+        <hr />
+        <ol>
+            <li v-for="person in people">
+                {{ person.firstName }}
+            </li>   
+        </ol>
+    </div>
+
+</body>
+
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'You are a banana.',
+            showMessage: true,            // toggle this !!!
+            people: [
+                {firstName : "John"},
+                {firstName : "Peter"}
+            ]
+        }
+    })
+</script>
+    
+</html>
+

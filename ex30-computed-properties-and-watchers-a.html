@@ -1,0 +1,63 @@
+<html>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+
+<body>
+
+    <div id="example">
+        <p>Original message: "{{ message }}"</p>
+        <p>Computed reversed message: "{{ reversedMessageComputed }}"</p>
+        <p>Method 4 reversed message: "{{ reversedMessageMethod() }}"</p>  <!-- Not the call requires () fn invoke -->
+        <hr />
+        <p>The computed date : {{ computedDate }}</p>
+        <p>The method date : {{ methodDate() }}</p>
+        <hr />
+        <button @click="message='Arse'">Change Message</button> <!-- Notice how all messages are re-rendered -->
+    </div>
+
+</body>
+
+
+<script>
+
+    var vm = new Vue({
+        el: '#example',
+        data: {
+        message: 'Hello'
+        },
+        computed: {
+            //
+            // A computed getter - recalculated only when necessary
+            //
+            // Computed properties are cached based on their dependencies.
+            // A computed property will only re-evaluate when some of its dependencies have changed.
+            // This means as long as message has not changed, multiple access to the reversedMessage
+            // computed property will immediately return the previously computed result without having
+            // to run the function again.
+            //
+            reversedMessageComputed: function () {
+                return this.message.split('').reverse().join('')
+            },
+            //
+            // This computed getter won't get re-evaluated when button is pushed
+            computedDate: function () {
+                return Date.now()
+            }
+        },
+        methods: {
+            // a getter method
+            reversedMessageMethod: function () {
+                return this.message.split('').reverse().join('')
+            },
+            // This method-style getter does get re-evaluated when button is pushed
+            methodDate: function () {
+                return Date.now()
+            }
+        }
+    });
+
+</script>
+
+</html>
+

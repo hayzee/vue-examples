@@ -1,0 +1,98 @@
+<html>
+
+<head>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+    <style>
+
+        textarea {
+            height:200px;
+            width:300px;
+        }
+    </style>
+    
+</head>
+
+
+
+<body>
+
+    <div id="app">
+            <p>{{ message }}</p>
+            <p>{{ message2 }}</p>
+            <button v-on:click="reverseMessage">Reverse Message</button>
+        <br />
+        <br />
+        <input v-model="message">
+    </div>
+
+    <div id="app2">
+            <textarea>{{ areaText }}</textarea>
+            <textarea>{{ areaText2 }}</textarea>
+        </div>
+
+</body>
+
+
+<script>
+
+    var theData = {
+        message:  'I will get overwritten.',
+        message2: 'So will I.'    // try commenting thisd line out to see that adding the property (below) does NOT cause rerender and subsequent display in the component.
+    }
+
+    var app = new Vue({
+        el: '#app',
+        data: theData,
+        methods: {
+            reverseMessage: function () {
+                this.message = this.message.split('').reverse().join('');
+            }
+        },
+        // Lifecycle Hooks - see diagram - https://vuejs.org/v2/guide/instance.html
+        created: function () {
+            console.log("Created lifecycle hook.");
+        },
+        mounted: function () {
+            console.log("Mounted lifecycle hook.");
+        },
+        beforeMount: function () {
+            console.log("BeforeMount lifecycle hook.");
+        },
+        beforeCreate: function () {
+            console.log("BeforeCreate lifecycle hook.");
+        },
+        beforeUpdate: function () {
+            console.log("BeforeUpdate lifecycle hook.");
+        },
+        updated: function () {
+            console.log("Updated lifecycle hook.");
+        },
+        destroyed: function () {
+            console.log("Destroyed lifecycle hook.");
+        },
+        beforeDestroy: function () {
+            console.log("BeforeDestroy lifecycle hook.");
+        }
+    })
+
+    theData.message = "Yes, I updated. Truly r-e-a-c-t-i-v-e"
+    theData.message2 = "Yes, I updated too, but ONLY If message2 is already defined."
+
+    var app2 = new Vue({
+        el: '#app2',
+        data: {
+            areaText: "Area Text",
+            areaText2: "Area Text2",
+        }
+    })
+
+    app2.$data.areaText = JSON.stringify(app.$data);
+    app2.$data.areaText2 = app.$el === document.getElementById("app") // app.$el is not printable - maybe console loggable though
+    console.log("app.$el="+ app.$el); // app.$el is not printable - maybe console loggable though - yes it is!!
+
+</script>
+
+</html>
+

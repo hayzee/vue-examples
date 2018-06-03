@@ -1,0 +1,98 @@
+<html>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+
+<body>
+
+    <div id="app">
+
+        <!-- Example of a interpolation  -->
+        <span>This will change: {{ message }}</span>
+        <hr />
+
+        <!-- Example of a one-time interpolation -->
+        <span v-once>This will not: {{ message }}</span>
+        <button v-on:click="changeMessage">Change Message</button>
+        <hr />
+
+        <!-- Example of html interpolation using v-html -->
+        <p>Using mustaches: {{ rawHtml }}</p>
+        <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+
+        <!-- Attributes - 'cos you can't say <button id="{{ ButtonId }}">Button</button> -->
+        <button v-bind:id="buttonId" v-on:click="showMyId">Button</button>
+
+        <!-- Attributes - 'cos you can't say <button disabled="{{ isButtonDisabled }}">Button</button> -->
+        <!-- Attributes - This is an example of a boolean - if isButtonDisabled is falsey, the attribute WON'T GET RENDERED -->
+        <button v-bind:disabled="isButtonDisabled">Button</button>
+
+        <!-- JS Expressions -->
+        <p>{{  "crikey" + " js expressions " + "actually work"}}</p>
+        <p>{{  "Oh yes " + (22+10) }}</p>
+        <!-- JS Expressions can be mixed with data values from the Vue object. -->
+        <p>{{message2.split('').reverse().join('')}}</p>
+        <!-- It's ok to use an expression in a binding. -->
+        <div v-bind:id="'list-' + buttonId"></div>
+        <!-- Only ONE js expression is allowed, so statements followed by an epression will not work. -->
+        <!-- Don't use if else either but ternary operator is fine. -->
+
+        <!-- Directives start with v- . -->
+        <p v-if="!toggleSeen">Now you see me</p>
+        <p v-if="toggleSeen">Now you don't</p>
+
+        <!-- Arguments follow a directive with a colon. -->
+        <!-- .. and Hey, look I don't have to call a function. -->
+        <button v-on:click="toggleSeen =! toggleSeen">Toggle</button>
+
+        <!-- Modifiers follow a directive (and/or argument) with a full-stop. -->
+        <!-- There's a whole bunch of them, this one (default) controls submit behaviour of a form -->
+        <!-- Form will call the onSubmit method but the form won't actually submit. -->
+        <hr />
+        <form method="get" v-on:submit.prevent="onSubmit">
+            <input name="arse" />
+            <button type="submit">Toggle</button>
+        </form>
+
+        <!-- Shorthand - just a colon for v-bind and @ for v-on-->
+        <hr />
+        <button :id="theButtonId" @click="clickify">Shorthand Button</button>
+
+    </div>
+
+</body>
+
+
+<script>
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'This might change!',
+            message2: 'Intermingle with js',
+            rawHtml: '<span style="color:red">This will go red in a v-html directive',
+            isButtonDisabled: true,
+            buttonId: "bid",
+            toggleSeen: false,
+            theButtonId: "theButton",
+        },
+        methods: {
+            changeMessage: function() {
+                this.message = "Aha! This isn't change everywhere."
+            },
+            showMyId: function() {
+                alert("My Id is " + document.getElementById(this.buttonId))
+            },
+            onSubmit: function() {
+                alert("onSubmit");                
+            },
+            clickify: function() {
+                alert("clickified " + document.getElementById(this.theButtonId).id);  // Ridiculous yes.
+            }
+        }
+    });
+
+</script>
+    
+</html>
+

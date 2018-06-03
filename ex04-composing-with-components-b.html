@@ -1,0 +1,46 @@
+<html>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+
+<body>
+
+    <div id="app">
+        Shopping list:
+        <ol>
+            <!-- Create an instance of the todo-item component -->
+            <todo-item v-for="item in groceryList" v-bind:todo="item" :key="item.id"></todo-item>
+        </ol>
+    </div>
+
+</body>
+
+
+<script>
+
+    /* Note: The component must be defined before it is used in a Vue object */
+
+    Vue.component('todo-item', {
+        props: ['todo'],
+        template: '<li>{{ todo.text }}</li>'
+    });
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            groceryList: [
+            { id: 0, text: 'Vegetables' },
+            { id: 1, text: 'Cheese' },
+            { id: 2, text: 'Whatever else humans are supposed to eat' },
+            { id: 3, text: 'Galaxy Minstrels of course!' }
+            ]
+        }
+    });
+
+
+</script>
+
+
+    
+</html>
+

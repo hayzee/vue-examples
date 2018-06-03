@@ -1,0 +1,117 @@
+<html>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+<style>
+
+    .static {
+        color:green;
+        border: 1px solid green;
+    }
+
+    .active {
+        border: 1px solid red;
+    }
+
+    .textDanger {
+        color:red;
+    }
+    
+</style>
+
+<body>
+
+    <div id="app">
+        <div class="static"
+             v-bind:class="{ active: isActive, textDanger: hasError }">
+             Bind with explicit object
+        </div>
+        <hr />
+        Try toggling data vaues:
+        <br />
+        Active: <input type="checkbox" v-model="isActive" />
+        <br />
+        Error: <input type="checkbox" v-model="hasError" />
+        <hr />
+        <div class="static"
+             v-bind:class="classObject">
+        Bind with data object
+        </div>
+        <hr />
+        Try toggling data vaues:
+        <br />
+        Active: <input type="checkbox" v-model="classObject.active" />
+        <br />
+        Error: <input type="checkbox" v-model="classObject.textDanger" />
+        <hr />
+        <div class="static"
+             v-bind:class="computedClassOject">
+        Bind with computed property
+        </div>
+        <hr />
+        Try toggling data vaues:
+        <br />
+        Active: <input type="checkbox" v-model="isActive" />
+        <br />
+        Error: <input type="checkbox" v-model="hasError" />
+        <hr />
+        <div class="static"
+             v-bind:class="[{active: isActive}, {textDanger: hasError}]">
+        Bind with array syntax 1
+        </div>
+        <hr />
+        Try toggling data vaues:
+        <br />
+        Active: <input type="checkbox" v-model="isActive" />
+        <br />
+        Error: <input type="checkbox" v-model="hasError" />
+        <hr />
+        <div class="static"
+             v-bind:class="[activeClass, errorClass]">
+        Bind with array syntax 2
+        </div>
+        <hr />
+        Try toggling data vaues:
+        <br />
+        Active: <input type="checkbox" v-model="isActive" />
+        <br />
+        Error: <input type="checkbox" v-model="hasError" />
+    </div>
+    <hr />
+    <hr />
+
+</body>
+
+
+<script>
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            isActive: true,
+            hasError: true,
+            classObject: {
+                active: true,
+                textDanger: true
+            },
+            activeClass: "active",
+            errorClass: "textDanger"
+        },
+        computed: {
+            computedClassOject: function () {
+                return {
+                    active: this.isActive,
+                    textDanger: this.hasError
+                }
+            }
+        }
+    });
+
+    Vue.component('my-component', {
+        template: '<p class="foo bar">Hi</p>'
+    });
+
+</script>
+    
+</html>
+

@@ -1,0 +1,49 @@
+<html>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+
+<body>
+
+    <div id="demo1">Fullname 1 : {{ fullName }}</div>
+    <hr />
+    <div id="demo2">Fullname 2 : {{ fullName }}</div>
+
+</body>
+
+
+<script>
+    var vm = new Vue({
+        el: '#demo1',
+        data: {
+            firstName: 'Foo',
+            lastName: 'Bar',
+            fullName: ""
+        },
+        watch: {  // <<-- these functions are watch properties - they are invoked when their dependencies change
+            firstName: function (val) {
+                this.fullName = val + ' ' + this.lastName
+            },
+            lastName: function (val) {
+                this.fullName = this.firstName + ' ' + val
+            }
+        }
+    });
+
+    var vm = new Vue({
+        el: '#demo2',
+        data: {
+            firstName: 'Foo',
+            lastName: 'Bar'
+        },
+        computed: {  // <<-- ... but a computed property is often better so default to those if you can 
+            fullName: function () {
+                return this.firstName + ' ' + this.lastName
+            }
+        }
+    });
+
+</script>
+    
+</html>
+

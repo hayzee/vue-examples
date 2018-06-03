@@ -1,0 +1,45 @@
+<html>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+
+<body>
+
+    <div id="app">
+        {{ message }}
+        <ol>
+            <!-- Create an instance of the todo-item component -->
+            <todo-item />
+        </ol>
+    </div>
+
+</body>
+
+
+<script>
+
+    /* Note: The component must be defined before it is used in a Vue object */
+
+    Vue.component('todo-item', {
+        // The todo-item component now accepts a
+        // "prop", which is like a custom attribute.
+        // This prop is called todo.
+        props: ['todo'],
+        template: '<li>This is a todo item</li>'   // but really we want to pass parameters into this - see next example
+    });
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!'
+        }
+    });
+
+    /* Note : Vue components are very similar to Custom Elements, which are part of the Web Components Spec. */
+
+</script>
+
+
+
+</html>
+
